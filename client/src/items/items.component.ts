@@ -30,10 +30,10 @@ import {GadgetService} from '../common/services/gadget.service.ts'
     <div class="mdl-cell mdl-cell--6-col">
       
       <item-detail
-      
         (saved)="saveItem($event)" (cancelled)="resetItem($event)"
-        
-        [item]="selectedItem | async">Select an Item>
+        [item]="selectedItem | async">
+
+            Select an Item
 
       </item-detail>
     
@@ -41,7 +41,8 @@ import {GadgetService} from '../common/services/gadget.service.ts'
 
     <div class="mdl-cell mdl-cell--6-col">
       
-      <reminders>
+      <reminders
+          [reminders]="itemReminders | async">
       </reminders>
     
     </div>
@@ -61,6 +62,9 @@ export class Items {
 
   items: Observable<Array<Item>>;
   selectedItem: Observable<any>;
+  
+  itemReminders: Observable<any>;
+
   gadget: Observable<Gadget>;
 
   constructor(private itemsService: ItemsService,
@@ -70,9 +74,8 @@ export class Items {
     this.items = itemsService.items;
 
     this.selectedItem = store.select('selectedItem');
+    this.itemReminders = store.select('selectedItem');
     
-    this.selectedItem.subscribe(v => console.log(v));
-
     this.gadget = gadgetService.gadget;
 
     itemsService.loadItems();
@@ -89,6 +92,7 @@ export class Items {
 
   setReminder(item: Item) {
       console.log(item);
+      // this.store.dispatch({type: 'ADD_REMINDER', payload: item});
   }
 
   saveItem(item: Item) {

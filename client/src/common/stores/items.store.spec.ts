@@ -21,7 +21,9 @@ describe('`items` store', () => {
 
   it('`CREATE_ITEM`', () => {
     let payload = {id: 2, name: 'added item'},
+
       result = [...initialState, payload],
+    
       stateItems = items(initialState, {type: 'CREATE_ITEM', payload: payload});
 
     expect(stateItems).toEqual(result);
@@ -30,6 +32,7 @@ describe('`items` store', () => {
   it('`UPDATE_ITEM`', () => {
     let payload = { id: 1, name: 'Updated Item' },
       result = [ initialState[0], { id: 1, name: 'Updated Item' } ],
+      
       stateItems = items(initialState, {type: 'UPDATE_ITEM', payload: payload});
 
     expect(stateItems).toEqual(result);

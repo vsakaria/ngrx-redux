@@ -6,6 +6,7 @@ import {AppStore} from '../common/models/appstore.model';
 import {Item} from '../common/models/item.model';
 import {ItemsList} from './items-list.component';
 import {ItemDetail} from './item-detail.component';
+import {Reminders} from '../reminders/reminders.component';
 
 import {Gadget} from '../common/models/gadget.model';
 import {GadgetService} from '../common/services/gadget.service.ts'
@@ -14,16 +15,38 @@ import {GadgetService} from '../common/services/gadget.service.ts'
   selector: 'items',
   template: `
   <div class="mdl-grid items">
+    
     <div class="mdl-cell mdl-cell--6-col">
+      
       <items-list [items]="items | async"
-        (selected)="selectItem($event)" (deleted)="deleteItem($event)">
+        
+        (selected)="selectItem($event)" (deleted)="deleteItem($event)"
+        (reminder)="setReminder($event)">
+
       </items-list>
+    
     </div>
+    
     <div class="mdl-cell mdl-cell--6-col">
+      
       <item-detail
+      
         (saved)="saveItem($event)" (cancelled)="resetItem($event)"
-        [item]="selectedItem | async">Select an Item</item-detail>
+        
+        [item]="selectedItem | async">Select an Item>
+
+      </item-detail>
+    
     </div>
+
+    <div class="mdl-cell mdl-cell--6-col">
+      
+      <reminders>
+      </reminders>
+    
+    </div>
+
+    
   </div>
   `,
   styles: [`
@@ -32,18 +55,22 @@ import {GadgetService} from '../common/services/gadget.service.ts'
     }
   `],
   providers: [ItemsService],
-  directives: [ItemsList, ItemDetail]
+  directives: [ItemsList, ItemDetail, Reminders]
 })
 export class Items {
+
   items: Observable<Array<Item>>;
-  selectedItem: Observable<Item>;
+  selectedItem: Observable<any>;
   gadget: Observable<Gadget>;
 
   constructor(private itemsService: ItemsService,
               private gadgetService: GadgetService,
               private store: Store<AppStore>) {
+
     this.items = itemsService.items;
+
     this.selectedItem = store.select('selectedItem');
+    
     this.selectedItem.subscribe(v => console.log(v));
 
     this.gadget = gadgetService.gadget;
@@ -58,6 +85,10 @@ export class Items {
 
   selectItem(item: Item) {
     this.store.dispatch({type: 'SELECT_ITEM', payload: item});
+  }
+
+  setReminder(item: Item) {
+      console.log(item);
   }
 
   saveItem(item: Item) {

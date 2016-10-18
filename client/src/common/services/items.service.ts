@@ -11,8 +11,9 @@ const BASE_URL = 'http://localhost:3000/items/';
 const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
 @Injectable()
+
 export class ItemsService {
-  items: Observable<Array<Item>>;
+  items: Observable<any>;
 
   constructor(private http: Http, private store: Store<AppStore>) {
     this.items = store.select('items');

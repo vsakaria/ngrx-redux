@@ -74,7 +74,8 @@ export class Items {
     this.items = itemsService.items;
 
     this.selectedItem = store.select('selectedItem');
-    this.itemReminders = store.select('selectedItem');
+
+    this.itemReminders = store.select('reminders');
     
     this.gadget = gadgetService.gadget;
 
@@ -92,7 +93,7 @@ export class Items {
 
   setReminder(item: Item) {
       console.log(item);
-      // this.store.dispatch({type: 'ADD_REMINDER', payload: item});
+      this.store.dispatch({type: 'CREATE_REMINDER', payload: item});
   }
 
   saveItem(item: Item) {

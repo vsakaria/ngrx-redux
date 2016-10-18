@@ -6,6 +6,7 @@ import {StoreModule} from '@ngrx/store';
 import {items} from './src/common/stores/items.store';
 import {selectedItem} from './src/common/stores/selectedItem.store';
 import {selectedWidget} from './src/common/stores/selectedWidget.store';
+import {reminders} from './src/common/stores/reminders.store';
 
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreLogMonitorModule, useLogMonitor} from '@ngrx/store-log-monitor';
@@ -32,7 +33,7 @@ import {routes} from './routes';
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    StoreModule.provideStore({items, selectedItem, selectedWidget}),
+    StoreModule.provideStore({items, selectedItem, selectedWidget, reminders}),
     StoreDevtoolsModule.instrumentStore({
       monitor: useLogMonitor({
         visible: false,
